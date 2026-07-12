@@ -6,7 +6,6 @@ import authRoutes from "./routes/auth.route";
 import productRoutes from "./routes/product.route";
 import orderRoutes from "./routes/order.route";
 import cartRoutes from "./routes/cart.route";
-import adminRoutes from "./routes/admin.route";
 import path from "path";
 
 const app = express();
@@ -30,7 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
-app.use("/api/admin", adminRoutes);
+
 
 connectDatabase()
   .then(() => {
