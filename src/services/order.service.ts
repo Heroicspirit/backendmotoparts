@@ -1,5 +1,5 @@
-import { OrderRepository } from "../repositories/order.repository";
-import { ProductRepository } from "../repositories/product.repository";
+import { OrderRepository } from "../repository/order.repository";
+import { ProductRepository } from "../repository/product.repository";
 import { HttpError } from "../errors/http-error";
 
 const orderRepository = new OrderRepository();
