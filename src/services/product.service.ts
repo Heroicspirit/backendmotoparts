@@ -55,4 +55,8 @@ export class ProductService {
         }
         return await productRepository.updateStock(id, quantity);
     }
+
+    async searchProducts(search: string, page: number = 1, size: number = 10) {
+        return await productRepository.searchProducts(search, page, size);
+    }
 }

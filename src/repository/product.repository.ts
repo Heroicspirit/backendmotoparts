@@ -12,11 +12,36 @@ export class ProductRepository {
             query.$or = [
                 { title: { $regex: search, $options: 'i' } },
                 { brand: { $regex: search, $options: 'i' } },
-                { category: { $regex: search, $options: 'i' } }
+                { category: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } }
             ];
         }
         if (category) {
             query.category = category;
+        }
+
+        const skip = (page - 1) * size;
+        const products = await ProductModel.find(query)
+            .skip(skip)
+            .limit(size)
+            .sort({ createdAt: -1 });
+        const total = await ProductModel.countDocuments(query);
+        return { products, total, page, size };
+    }
+
+    async searchProducts(search: string, page: number = 1, size: number = 10) {
+        const searchTerms = search.split(' ').filter(term => term.length > 0);
+        const query: any = {};
+
+        if (searchTerms.length > 0) {
+            query.$or = searchTerms.map(term => ({
+                $or: [
+                    { title: { $regex: term, $options: 'i' } },
+                    { brand: { $regex: term, $options: 'i' } },
+                    { category: { $regex: term, $options: 'i' } },
+                    { description: { $regex: term, $options: 'i' } }
+                ]
+            }));
         }
 
         const skip = (page - 1) * size;

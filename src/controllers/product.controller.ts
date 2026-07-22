@@ -196,4 +196,30 @@ export class ProductController {
             });
         }
     }
+
+    async searchProducts(req: Request, res: Response) {
+        try {
+            const { q } = req.query;
+            const page = parseInt(req.query.page as string) || 1;
+            const size = parseInt(req.query.size as string) || 10;
+
+            if (!q || typeof q !== 'string') {
+                return res.status(400).json({
+                    success: false,
+                    message: "Search query is required"
+                });
+            }
+
+            const result = await productService.searchProducts(q, page, size);
+            return res.status(200).json({
+                success: true,
+                ...result
+            });
+        } catch (error: Error | any) {
+            return res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || "Internal Server Error"
+            });
+        }
+    }
 }
