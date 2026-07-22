@@ -17,7 +17,7 @@ export class CartRepository {
         }
 
         const existingItemIndex = cart.items.findIndex(
-            (item: any) => item.product.toString() === itemData.product
+            (item: any) => item.product && item.product.toString() === itemData.product
         );
 
         if (existingItemIndex > -1) {
@@ -36,7 +36,7 @@ export class CartRepository {
         }
 
         const itemIndex = cart.items.findIndex(
-            (item: any) => item.product.toString() === productId
+            (item: any) => item.product && item.product.toString() === productId
         );
 
         if (itemIndex === -1) {
@@ -59,7 +59,7 @@ export class CartRepository {
         }
 
         cart.items = cart.items.filter(
-            (item: any) => item.product.toString() !== productId
+            (item: any) => item.product && item.product.toString() !== productId
         );
 
         return await cart.save();
