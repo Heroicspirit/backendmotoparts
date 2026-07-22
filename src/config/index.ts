@@ -7,3 +7,5 @@ export const MONGODB_URI: string =
 process.env.MONGODB_URI || process.env.MONGODB_URL || 'mongodb://localhost:27017/motoparts';
 export const JWT_SECRET: string = 
 process.env.JWT_SECRET || 'default_secret';
+export const CLIENT_URL: string =
+process.env.CLIENT_URL || 'http://localhost:3000';
